@@ -1,7 +1,7 @@
 import express from "express";
 import bodyParser from "body-parser";
 import http from "http";
-import { Server } from "socket.io";
+import { socketEmitter } from "./socketServer.js";
 
 const app = express();
 const port = process.env.PORT || 3000;
@@ -15,11 +15,7 @@ app.get("/", (req, res) => {
 
 const server = http.Server(app);
 
-const io = new Server(server);
-
-io.on("connection", (socket) => {
-    console.log("Sombody has connected");
-})
+socketEmitter(server);
 
 server.listen(port, () => {
     console.log(`Escuchando en el puerto: ${port}`);
