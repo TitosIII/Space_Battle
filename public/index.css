@@ -1,0 +1,59 @@
+
+body{
+    margin: 0;
+}
+div{
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: #111111bd;
+    display: flex;
+}
+form{
+    background-color: hite;
+    margin: auto;
+    justify-content: center;
+    align-items: center;
+    width: 300px;
+    height: 120px;
+    padding: 5px;
+    place-items: center;
+}
+input{
+    background-color: white;
+    position: relative;
+    margin: auto;
+}
+button{
+    position: relative;
+    color: black;
+    background-color: green;
+    margin: auto;
+    width: 75%;
+}
+
+section{
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: #111111bd;
+    display: none;
+}
+
+#gameOver{
+    margin: auto;
+    justify-content: center;
+    align-items: center;
+    width: 300px;
+    height: 120px;
+    padding: 5px;
+    place-items: center;
+}
+
+h1{
+    color: white;
+}

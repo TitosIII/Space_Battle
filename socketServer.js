@@ -11,7 +11,7 @@ const heightScreen = 720;
 
 ///Clases (Naves, malos y balas).
 class ship {
-  constructor(id, x, y, vel, size, color) {
+  constructor(id, x, y, vel, size, color, name) {
     this.id = id;
     this.x = x;
     this.y = y;
@@ -22,6 +22,7 @@ class ship {
     this.beams = [];
     this.score = 0;
     this.life = 3;
+    this.name = name;
 
     this.size = size;
     this.color = color;
@@ -48,8 +49,8 @@ class ship {
     if (this.pressedKeys.right && this.x < widthScreen - 30) {
       this.x += this.vel;
     }
-    if (this.pressedKeys.shoot && this.cooldown >= 30) {
-      this.beams.push(new beam(this.x, this.y, 10, 10, "yellow"));
+    if (this.pressedKeys.shoot && this.cooldown >= 24) {
+      this.beams.push(new beam(this.x, this.y, 15, 10, "yellow"));
       this.cooldown = 0;
     }
   }
@@ -91,12 +92,25 @@ export const socketEmitter = (server) => {
   io.on("connection", (socket) => {
     console.log("Sombody has connected");
 
-    players.push(new ship(socket.id, 30, 90, 7, 30, "purple"));
-
     socket.on("disconnect", () => {
       console.log("User Disconnected");
       players.forEach((player, index) => {
         if (player.id == socket.id) players.splice(index, 1);
+      });
+    });
+
+    socket.on("initGame", (object) => {
+      players.push(new ship(socket.id, 30, 90, 7, 30, "blue", object.nick));
+    });
+
+    socket.on("retry", () => {
+      players.forEach(player => {
+        if(socket.id == player.id){
+          player.active = true;
+          player.color = "blue";
+          player.life = 3;
+          player.score = 0;
+        }
       });
     });
 
@@ -110,6 +124,7 @@ export const socketEmitter = (server) => {
   });
 
   setInterval(() => {
+    if (dificultSetter > 60) dificultSetter = 60;
     if (time <= 75 - (Math.floor(dificultSetter / 5) + 1) * 5) {
       time++;
     } else {
@@ -125,15 +140,21 @@ export const socketEmitter = (server) => {
       time = 0;
     }
 
+    dificultSetter = 0;
+
     players.forEach((player) => {
       if (player.active) {
         player.update();
 
-        player.beams.forEach((value, index) => {
-          value.update();
-          if (value.x > 1280) player.beams.splice(index, 1);
-        });
+        if (player.score < 90) {
+          dificultSetter += Math.floor(player.score / 3);
+        }
       }
+
+      player.beams.forEach((value, index) => {
+        value.update();
+        if (value.x > 1280) player.beams.splice(index, 1);
+      });
     });
 
     enemies.forEach((valueE, indexE) => {
@@ -150,7 +171,6 @@ export const socketEmitter = (server) => {
               player.beams.splice(indexB, 1);
               enemies.splice(indexE, 1);
               player.score++;
-              if (dificultSetter < 60) dificultSetter++;
             }
           });
 
