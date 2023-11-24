@@ -40,6 +40,8 @@ addEventListener("keydown", (evt) => {
             pressedKeys.shoot = true;
             break;
     }
+
+    socket.emit("updateKeyboard", {pressedKeys});
 })
 
 addEventListener("keyup", (evt) => {
@@ -61,6 +63,8 @@ addEventListener("keyup", (evt) => {
             pressedKeys.shoot = false;
             break;
     }
+
+    socket.emit("updateKeyboard", {pressedKeys});
 })
 
 ///Dibujar en pantalla.
@@ -81,10 +85,10 @@ function animate(){
     ctx.font = "30px comicSans";
     ctx.fillStyle = "white";
     ctx.fillText(`SCORE: ${MyPlayer.score}`, 0, 30);
-    ctx.fillText(`LIFE: `, innerWidth - 300, 30);
+    ctx.fillText(`LIFE: `, canvas.width - 300, 30);
 
     ctx.beginPath();
-    ctx.rect(innerWidth - 225, 5, 30 * MyPlayer.life, 27);
+    ctx.rect(canvas.width - 225, 5, 30 * MyPlayer.life, 27);
     ctx.fillStyle = "red";
     ctx.fill();
 
@@ -110,6 +114,4 @@ socket.on("update", ({players, enemies}) =>{
 
     myPlayers = players;
     myEnemies = enemies;
-
-    socket.emit("updateKeyboard", {pressedKeys});
 })
