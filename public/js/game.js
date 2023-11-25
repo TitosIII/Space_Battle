@@ -2,8 +2,8 @@
 const canvas = document.querySelector("canvas");
 const ctx = canvas.getContext("2d");
 
-const modalForm = document.getElementById("nick");
-const modalGameOver = document.querySelector("section");
+const modalForm = document.getElementById("modal");
+const modalGameOver = document.getElementById("modalC");
 const form = document.querySelector("form");
 const name = document.querySelector("input");
 const retry = document.getElementById("retry");

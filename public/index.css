@@ -1,8 +1,8 @@
-
 body{
     margin: 0;
 }
-div{
+
+#modal{
     position: fixed;
     top: 0;
     left: 0;
@@ -11,30 +11,8 @@ div{
     background-color: #111111bd;
     display: flex;
 }
-form{
-    background-color: hite;
-    margin: auto;
-    justify-content: center;
-    align-items: center;
-    width: 300px;
-    height: 120px;
-    padding: 5px;
-    place-items: center;
-}
-input{
-    background-color: white;
-    position: relative;
-    margin: auto;
-}
-button{
-    position: relative;
-    color: black;
-    background-color: green;
-    margin: auto;
-    width: 75%;
-}
 
-section{
+#modalC{
     position: fixed;
     top: 0;
     left: 0;
@@ -42,6 +20,28 @@ section{
     bottom: 0;
     background-color: #111111bd;
     display: none;
+}
+
+#title{
+    
+    margin: auto;
+    width: 300px;
+    height: 120px;
+    padding: 5px;
+}
+
+input{
+    background-color: white;
+    position: relative;
+    margin: auto;
+}
+
+button{
+    position: relative;
+    color: black;
+    background-color: green;
+    margin: auto;
+    width: 75%;
 }
 
 #gameOver{

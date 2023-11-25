@@ -9,25 +9,27 @@
   <body>
     <canvas></canvas>
 
-    <div id="nick">
-      <form>
-        <h1>Space Battle</h1>
-        <input
-          type="text"
-          name="nick"
-          id="nick"
-          placeholder="Insert a Nickname"
-        />
-        <button type="submit">Play</button>
-      </form>
+    <div id="modal">
+      <div id="title">
+        <form>
+          <h1>Space Battle</h1>
+          <input
+            type="text"
+            name="nick"
+            id="nick"
+            placeholder="Insert a Nickname"
+          />
+          <button type="submit">Play</button>
+        </form>
+      </div>
     </div>
 
-    <section>
+    <div id="modalC">
       <div id="gameOver">
         <h1>Has perdido...</h1>
         <button id="retry">Reintentar</button>
       </div>
-    </section>
+    </div>
 
     <script src="socket.io/socket.io.js"></script>
     <script src="js/game.js"></script>
